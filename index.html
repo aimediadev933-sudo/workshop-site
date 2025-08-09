@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network and Information Security Workshop | Bhutan 2017</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1D1D1B;
+            background-color: #FCF5EC;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #F28C28 0%, #E88C2D 100%);
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="60" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .workshop-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-left: 4px solid #F28C28;
+        }
+
+        .section h2 {
+            color: #9F4B14;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #F28C28;
+            border-radius: 2px;
+        }
+
+        .section h3 {
+            color: #E88C2D;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .section p, .section li {
+            margin-bottom: 0.8rem;
+            color: #1D1D1B;
+        }
+
+        .section ul {
+            padding-left: 1.5rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Objectives Grid */
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .objective-card {
+            background: #FCF5EC;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #F28C28;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(242, 140, 40, 0.2);
+        }
+
+        .objective-icon {
+            width: 48px;
+            height: 48px;
+            background: #F28C28;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Activities */
+        .activities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .activity-item {
+            background: #FCF5EC;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #E88C2D;
+        }
+
+        .activity-title {
+            color: #9F4B14;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Outcomes */
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .outcome-card {
+            background: linear-gradient(135deg, #F28C28 0%, #E88C2D 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .outcome-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .outcome-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .outcome-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .outcome-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Partners */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .partner-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #FCF5EC;
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .partner-card:hover {
+            border-color: #F28C28;
+        }
+
+        /* SDGs */
+        .sdg-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .sdg-item {
+            background: #F28C28;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #9F4B14;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .workshop-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .objectives-grid,
+            .activities-list,
+            .outcomes-grid,
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .outcome-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+
+            .meta-item {
+                padding: 0.8rem;
+            }
+
+            .objective-card,
+            .activity-item {
+                padding: 1rem;
+            }
+
+            .outcome-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .section:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+
+        .section:nth-child(odd) {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Network and Information Security Workshop</h1>
+                <p class="subtitle">Building Cybersecurity Capabilities in Bhutan</p>
+                
+                <div class="workshop-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Project Category</div>
+                        <div class="meta-value">WP2</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Call</div>
+                        <div class="meta-value">1st Call</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Location</div>
+                        <div class="meta-value">Bhutan</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Date</div>
+                        <div class="meta-value">October 2017</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Participants</div>
+                        <div class="meta-value">52 Professionals</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="section">
+                <h2>Overview</h2>
+                <p>The "Network and Information Security Workshop" was organized by the Department of IT & Telecom (DITT), Bhutan, with financial support from TEIN*CC and collaboration with Sri Lanka CERT CC and APNIC. This comprehensive five-day workshop was designed to enhance the cybersecurity capabilities of system and network administrators from various Bhutanese institutions.</p>
+                <p>With Bhutan's growing digital infrastructure, the workshop addressed the increasing cyber risks by equipping participants with both theoretical knowledge and hands-on skills in network monitoring, vulnerability detection, system hardening, and incident response.</p>
+            </section>
+
+            <section class="section">
+                <h2>Project Objectives</h2>
+                <p>To build technical capacity in cybersecurity and network monitoring among Bhutanese IT professionals to better protect national educational and research infrastructure from emerging cyber threats.</p>
+                
+                <div class="objectives-grid">
+                    <div class="objective-card">
+                        <div class="objective-icon">🛡️</div>
+                        <h4>Security Training</h4>
+                        <p>Train participants in cybersecurity concepts and tools</p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-icon">🔍</div>
+                        <h4>Vulnerability Testing</h4>
+                        <p>Demonstrate vulnerability testing and system hardening techniques</p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-icon">📋</div>
+                        <h4>Policy Awareness</h4>
+                        <p>Promote awareness of cyber policies and best practices</p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-icon">🤝</div>
+                        <h4>Inter-Agency Cooperation</h4>
+                        <p>Foster cooperation and secure information exchange</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Activities Conducted</h2>
+                <div class="activities-list">
+                    <div class="activity-item">
+                        <div class="activity-title">Security Fundamentals</div>
+                        <p>Covered types of threats, trends, and basic security measures. Included case studies and policy discussions.</p>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-title">Hands-on Technical Sessions</div>
+                        <p>Demonstrated penetration testing, firewalls, controlled hacking, and configuration risk assessments.</p>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-title">Operational Security Workshops</div>
+                        <p>Focused on system administration, backup policies, continuity planning, and vulnerability response.</p>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-title">Threat-Specific Modules</div>
+                        <p>Addressed malware, phishing, sniffers, DoS attacks, and secure protocols (SSH, SCP, SFTP).</p>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-title">Expert-Led Sessions</div>
+                        <p>Delivered by trainers from Sri Lanka CERT CC and APNIC, including interactive demos and policy design exercises.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Key Outcomes</h2>
+                <div class="outcomes-grid">
+                    <div class="outcome-card">
+                        <div class="outcome-number">52</div>
+                        <div class="outcome-title">Skilled Professionals</div>
+                        <div class="outcome-desc">Participants gained hands-on experience in cybersecurity management and incident response</div>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-number">100%</div>
+                        <div class="outcome-title">Institutional Readiness</div>
+                        <div class="outcome-desc">Participants can now audit systems, identify vulnerabilities, and apply protective measures</div>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-number">∞</div>
+                        <div class="outcome-title">Inter-Agency Collaboration</div>
+                        <div class="outcome-desc">Created channels for cooperation and policy alignment across agencies</div>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-number">360°</div>
+                        <div class="outcome-title">Cybersecurity Awareness</div>
+                        <div class="outcome-desc">Enhanced understanding of legal, policy, and ethical responsibilities</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Partner Organizations</h2>
+                <div class="partners-grid">
+                    <div class="partner-card">
+                        <h4>Department of IT & Telecom</h4>
+                        <p>Ministry of Information and Communications (Bhutan)</p>
+                    </div>
+                    <div class="partner-card">
+                        <h4>TEIN*CC</h4>
+                        <p>Financial Support</p>
+                    </div>
+                    <div class="partner-card">
+                        <h4>Sri Lanka CERT CC</h4>
+                        <p>Technical Collaboration</p>
+                    </div>
+                    <div class="partner-card">
+                        <h4>APNIC Foundation</h4>
+                        <p>Training Support</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Challenges & Future Directions</h2>
+                <h3>Challenges Faced</h3>
+                <ul>
+                    <li><strong>Time Constraints:</strong> The five-day duration was insufficient for deeper technical implementations and advanced certification content.</li>
+                    <li><strong>Diverse Backgrounds:</strong> Varied participant experience levels required balancing foundational and technical training content.</li>
+                </ul>
+
+                <h3>Future Initiatives</h3>
+                <ul>
+                    <li><strong>Sectoral CIRT Formation:</strong> Establish Computer Incident Response Teams within key sectors</li>
+                    <li><strong>Advanced Certifications:</strong> Follow-up programs offering deeper security training (TRANSITS, CISSP tracks)</li>
+                    <li><strong>Regional Awareness Programs:</strong> Basic training campaigns across Bhutanese districts</li>
+                    <li><strong>Policy Guidelines:</strong> Develop standard cybersecurity guidelines for agency adoption</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Sustainable Development Goals</h2>
+                <div class="sdg-list">
+                    <div class="sdg-item">SDG 4 - Quality Education</div>
+                    <div class="sdg-item">SDG 9 - Industry, Innovation and Infrastructure</div>
+                    <div class="sdg-item">SDG 16 - Peace, Justice and Strong Institutions</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2017 Network and Information Security Workshop. Supported by TEIN*CC, Sri Lanka CERT CC, and APNIC Foundation.</p>
+        </div>
+    </footer>
+</body>
+</html>
